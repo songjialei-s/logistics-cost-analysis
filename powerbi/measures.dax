@@ -1,0 +1,33 @@
+// Create one measure at a time in the charges table. Already included in PBIP.
+
+Total Cost CNY = DIVIDE(SUM(charges[amount_cny_minor]), 100)
+
+Freight CNY = CALCULATE([Total Cost CNY], KEEPFILTERS(charges[category] = "freight"))
+
+Parcels = COUNTROWS(parcels)
+
+Items = SUM(parcels[item_count])
+
+Cost per Parcel CNY = DIVIDE([Total Cost CNY], [Parcels])
+
+Cost per Item CNY = DIVIDE([Total Cost CNY], [Items])
+
+Freight per Parcel CNY = DIVIDE([Freight CNY], [Parcels])
+
+Freight per Item CNY = DIVIDE([Freight CNY], [Items])
+
+Previous Month Cost CNY = CALCULATE([Total Cost CNY], DATEADD('Date'[Date], -1, MONTH))
+
+Cost MoM = VAR Prior = [Previous Month Cost CNY] RETURN IF(NOT ISINSCOPE('Date'[Month]) || ISBLANK([Total Cost CNY]), BLANK(), DIVIDE([Total Cost CNY] - Prior, Prior))
+
+Category Share = DIVIDE([Total Cost CNY], CALCULATE([Total Cost CNY], REMOVEFILTERS(charges[category])))
+
+Charge Lines = COUNTROWS(charges)
+
+Review Charge Lines = COALESCE(CALCULATE(COUNTROWS(charges), KEEPFILTERS(charges[is_anomaly] = 1)), 0)
+
+Review Cost CNY = CALCULATE([Total Cost CNY], KEEPFILTERS(charges[is_anomaly] = 1))
+
+Rejected Rows All Data = COUNTROWS(rejected)
+
+Freight Coverage Parcels = CALCULATE(DISTINCTCOUNT(charges[parcel_key]), REMOVEFILTERS(charges[category]), charges[category] = "freight")

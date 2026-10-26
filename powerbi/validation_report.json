@@ -1,0 +1,47 @@
+{
+  "status": "待 Desktop 验证",
+  "checks": [
+    "synthetic fixture exact amount/item/key match",
+    "unique parcel and charge keys",
+    "all charge foreign keys matched",
+    "integer-cent totals and monthly totals",
+    "local CSV-only model",
+    "3 pages and 16 measures generated"
+  ],
+  "expected": {
+    "cost_cny": 7947,
+    "parcels": 72,
+    "items": 144,
+    "freight_cny": 7179,
+    "monthly_cny": [
+      2360,
+      2488,
+      3099
+    ],
+    "review_lines": 1,
+    "rejected_rows": 18
+  },
+  "not_tested": [
+    "Power BI Desktop open",
+    "M execution in Desktop",
+    "DAX execution",
+    "visual rendering",
+    "interactive filtering",
+    "PBIX save"
+  ],
+  "verified_checks": [
+    "all CSV values matched independent fictional fixture, including rejection traceability",
+    "snapshot SHA256 matches manifest",
+    "five original SQL queries run against CSV-loaded in-memory SQLite; totals and freight rates match",
+    "calculated-table returned columns explicitly use calculatedTableColumn (Desktop error regression)",
+    "relationship endpoints exist, one-to-many single-direction, rejected disconnected",
+    "PBIR content version 2.0.0 distinct from definition.pbir 4.0; active page resolves",
+    "MoM total suppressed; anomaly table has a visual-only is_anomaly=1 filter",
+    "32 visuals: all fields/measures resolve and positions stay in canvas",
+    "generated model sources are local demo CSV only",
+    "40 PBIR/project JSON documents pass official Microsoft JSON schemas",
+    "original ETL tests pass in isolated temp directories inside demo runtime"
+  ],
+  "official_schema_documents": 40,
+  "desktop_status": "待 Desktop 验证"
+}

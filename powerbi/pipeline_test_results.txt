@@ -1,0 +1,8 @@
+test_conflict_rolls_back (test_pipeline.PipelineTest.test_conflict_rolls_back) ... ok
+test_end_to_end (test_pipeline.PipelineTest.test_end_to_end) ... ok
+test_invalid_fields_and_fx (test_pipeline.PipelineTest.test_invalid_fields_and_fx) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.338s
+
+OK

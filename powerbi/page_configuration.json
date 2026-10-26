@@ -1,0 +1,742 @@
+{
+  "desktop_status": "待 Desktop 验证",
+  "canvas": [
+    1280,
+    900
+  ],
+  "visuals": [
+    {
+      "page": "overview",
+      "id": "header",
+      "type": "textbox",
+      "title": "物流成本分析 · 成本总览",
+      "roles": null,
+      "position": [
+        24,
+        5,
+        1230,
+        52
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "date_filter",
+      "type": "slicer",
+      "title": "日期 Date",
+      "roles": {
+        "Values": [
+          [
+            "Date",
+            "Date",
+            false
+          ]
+        ]
+      },
+      "position": [
+        24,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "provider_filter",
+      "type": "slicer",
+      "title": "服务商 Provider",
+      "roles": {
+        "Values": [
+          [
+            "parcels",
+            "provider",
+            false
+          ]
+        ]
+      },
+      "position": [
+        434,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "category_filter",
+      "type": "slicer",
+      "title": "费用类别 Category",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "category",
+            false
+          ]
+        ]
+      },
+      "position": [
+        844,
+        64,
+        410,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "kpi0",
+      "type": "card",
+      "title": "总费用 CNY",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        180,
+        230,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "kpi1",
+      "type": "card",
+      "title": "包裹数",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Parcels",
+            true
+          ]
+        ]
+      },
+      "position": [
+        272,
+        180,
+        230,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "kpi2",
+      "type": "card",
+      "title": "商品件数",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Items",
+            true
+          ]
+        ]
+      },
+      "position": [
+        520,
+        180,
+        230,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "kpi3",
+      "type": "card",
+      "title": "单票运费 CNY",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Freight per Parcel CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        768,
+        180,
+        230,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "kpi4",
+      "type": "card",
+      "title": "单件运费 CNY",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Freight per Item CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        1016,
+        180,
+        230,
+        100
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "monthly_cost",
+      "type": "clusteredColumnChart",
+      "title": "月度费用 CNY",
+      "roles": {
+        "Category": [
+          [
+            "Date",
+            "Month",
+            false
+          ]
+        ],
+        "Y": [
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        300,
+        760,
+        270
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "monthly_mom",
+      "type": "lineChart",
+      "title": "月度环比（首月空白）",
+      "roles": {
+        "Category": [
+          [
+            "Date",
+            "Month",
+            false
+          ]
+        ],
+        "Y": [
+          [
+            "charges",
+            "Cost MoM",
+            true
+          ]
+        ]
+      },
+      "position": [
+        804,
+        300,
+        450,
+        270
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "monthly_table",
+      "type": "tableEx",
+      "title": "月度核对",
+      "roles": {
+        "Values": [
+          [
+            "Date",
+            "Month",
+            false
+          ],
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ],
+          [
+            "charges",
+            "Parcels",
+            true
+          ],
+          [
+            "charges",
+            "Items",
+            true
+          ],
+          [
+            "charges",
+            "Cost MoM",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        590,
+        760,
+        215
+      ]
+    },
+    {
+      "page": "overview",
+      "id": "scope_note",
+      "type": "textbox",
+      "title": "口径",
+      "roles": null,
+      "position": [
+        804,
+        590,
+        450,
+        215
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "header",
+      "type": "textbox",
+      "title": "物流成本分析 · 费用结构",
+      "roles": null,
+      "position": [
+        24,
+        5,
+        1230,
+        52
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "date_filter",
+      "type": "slicer",
+      "title": "日期 Date",
+      "roles": {
+        "Values": [
+          [
+            "Date",
+            "Date",
+            false
+          ]
+        ]
+      },
+      "position": [
+        24,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "provider_filter",
+      "type": "slicer",
+      "title": "服务商 Provider",
+      "roles": {
+        "Values": [
+          [
+            "parcels",
+            "provider",
+            false
+          ]
+        ]
+      },
+      "position": [
+        434,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "category_filter",
+      "type": "slicer",
+      "title": "费用类别 Category",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "category",
+            false
+          ]
+        ]
+      },
+      "position": [
+        844,
+        64,
+        410,
+        100
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "provider_cost",
+      "type": "clusteredBarChart",
+      "title": "服务商费用规模（不是服务质量排名）",
+      "roles": {
+        "Category": [
+          [
+            "parcels",
+            "provider",
+            false
+          ]
+        ],
+        "Y": [
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        180,
+        710,
+        300
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "category_cost",
+      "type": "donutChart",
+      "title": "费用类别结构",
+      "roles": {
+        "Category": [
+          [
+            "charges",
+            "category",
+            false
+          ]
+        ],
+        "Y": [
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        754,
+        180,
+        500,
+        300
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "provider_table",
+      "type": "tableEx",
+      "title": "服务商与费用类别",
+      "roles": {
+        "Values": [
+          [
+            "parcels",
+            "provider",
+            false
+          ],
+          [
+            "charges",
+            "category",
+            false
+          ],
+          [
+            "charges",
+            "Total Cost CNY",
+            true
+          ],
+          [
+            "charges",
+            "Category Share",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        500,
+        1230,
+        270
+      ]
+    },
+    {
+      "page": "structure",
+      "id": "structure_note",
+      "type": "textbox",
+      "title": "分析提示",
+      "roles": null,
+      "position": [
+        24,
+        790,
+        1230,
+        95
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "header",
+      "type": "textbox",
+      "title": "物流成本分析 · 异常与质量核查",
+      "roles": null,
+      "position": [
+        24,
+        5,
+        1230,
+        52
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "date_filter",
+      "type": "slicer",
+      "title": "日期 Date",
+      "roles": {
+        "Values": [
+          [
+            "Date",
+            "Date",
+            false
+          ]
+        ]
+      },
+      "position": [
+        24,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "provider_filter",
+      "type": "slicer",
+      "title": "服务商 Provider",
+      "roles": {
+        "Values": [
+          [
+            "parcels",
+            "provider",
+            false
+          ]
+        ]
+      },
+      "position": [
+        434,
+        64,
+        390,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "category_filter",
+      "type": "slicer",
+      "title": "费用类别 Category",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "category",
+            false
+          ]
+        ]
+      },
+      "position": [
+        844,
+        64,
+        410,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "review_count",
+      "type": "card",
+      "title": "待核查费用行",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Review Charge Lines",
+            true
+          ]
+        ]
+      },
+      "position": [
+        24,
+        180,
+        280,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "review_amount",
+      "type": "card",
+      "title": "待核查金额 CNY",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Review Cost CNY",
+            true
+          ]
+        ]
+      },
+      "position": [
+        324,
+        180,
+        280,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "rejected_count",
+      "type": "card",
+      "title": "全量拒绝记录（不随筛选）",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Rejected Rows All Data",
+            true
+          ]
+        ]
+      },
+      "position": [
+        624,
+        180,
+        330,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "accepted_count",
+      "type": "card",
+      "title": "当前有效费用行",
+      "roles": {
+        "Values": [
+          [
+            "charges",
+            "Charge Lines",
+            true
+          ]
+        ]
+      },
+      "position": [
+        975,
+        180,
+        279,
+        100
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "charge_review",
+      "type": "tableEx",
+      "title": "高费用待核查清单（单笔费用 > 400元）",
+      "roles": {
+        "Values": [
+          [
+            "parcels",
+            "provider",
+            false
+          ],
+          [
+            "charges",
+            "tracking_id",
+            false
+          ],
+          [
+            "charges",
+            "ship_date",
+            false
+          ],
+          [
+            "charges",
+            "category",
+            false
+          ],
+          [
+            "charges",
+            "amount_cny",
+            false
+          ],
+          [
+            "charges",
+            "is_anomaly",
+            false
+          ],
+          [
+            "charges",
+            "source_file",
+            false
+          ],
+          [
+            "charges",
+            "source_row",
+            false
+          ]
+        ]
+      },
+      "position": [
+        24,
+        300,
+        1230,
+        250
+      ],
+      "filter": "charges[is_anomaly] = 1 (visual only)"
+    },
+    {
+      "page": "quality",
+      "id": "rejected_table",
+      "type": "tableEx",
+      "title": "全量拒绝记录：仅合成来源及原因",
+      "roles": {
+        "Values": [
+          [
+            "rejected",
+            "source_file",
+            false
+          ],
+          [
+            "rejected",
+            "source_row",
+            false
+          ],
+          [
+            "rejected",
+            "reason",
+            false
+          ]
+        ]
+      },
+      "position": [
+        24,
+        580,
+        760,
+        235
+      ]
+    },
+    {
+      "page": "quality",
+      "id": "quality_note",
+      "type": "textbox",
+      "title": "质量说明",
+      "roles": null,
+      "position": [
+        804,
+        580,
+        450,
+        270
+      ]
+    }
+  ]
+}

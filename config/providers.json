@@ -1,0 +1,128 @@
+[
+  {
+    "provider": "AsterParcel",
+    "file": "AsterParcel.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 0,
+    "date_format": "%Y-%m-%d",
+    "currency": "CNY",
+    "weight_factor": 1,
+    "mapping": {
+      "tracking_id": "Parcel",
+      "ship_date": "Booked",
+      "amount": "Charge",
+      "weight": "Mass",
+      "item_count": "Units",
+      "category": "Kind"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  },
+  {
+    "provider": "BirchRoute",
+    "file": "BirchRoute.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 1,
+    "date_format": "%d/%m/%Y",
+    "currency": "USD",
+    "weight_factor": 0.001,
+    "mapping": {
+      "tracking_id": "Tracking ID",
+      "ship_date": "Date text",
+      "amount": "Billed",
+      "weight": "Grams",
+      "item_count": "Pieces",
+      "category": "Service"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  },
+  {
+    "provider": "CobaltShip",
+    "file": "CobaltShip.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 2,
+    "date_format": "%Y%m%d",
+    "currency": "EUR",
+    "weight_factor": 0.45359237,
+    "mapping": {
+      "tracking_id": "Waybill",
+      "ship_date": "Dispatch day",
+      "amount": "Fee",
+      "weight": "Pounds",
+      "item_count": "Item count",
+      "category": "Fee code"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  },
+  {
+    "provider": "DuneFreight",
+    "file": "DuneFreight.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 0,
+    "date_format": "%m-%d-%Y",
+    "currency": "CNY",
+    "weight_factor": 1,
+    "mapping": {
+      "tracking_id": "Consignment",
+      "ship_date": "Ship date",
+      "amount": "Amount",
+      "weight": "Weight kg",
+      "item_count": "Quantity",
+      "category": "Category"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  },
+  {
+    "provider": "EmberPost",
+    "file": "EmberPost.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 1,
+    "date_format": "%Y/%m/%d",
+    "currency": "USD",
+    "weight_factor": 0.001,
+    "mapping": {
+      "tracking_id": "Package ref",
+      "ship_date": "Billing date",
+      "amount": "Total",
+      "weight": "Weight g",
+      "item_count": "Unit count",
+      "category": "Cost type"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  },
+  {
+    "provider": "FableCargo",
+    "file": "FableCargo.xlsx",
+    "sheet": "Synthetic Bill",
+    "header_row": 2,
+    "date_format": "%d.%m.%Y",
+    "currency": "EUR",
+    "weight_factor": 0.45359237,
+    "mapping": {
+      "tracking_id": "Shipment",
+      "ship_date": "Event date",
+      "amount": "Cost",
+      "weight": "Weight lb",
+      "item_count": "Items",
+      "category": "Charge class"
+    },
+    "categories": {
+      "DELIVERY": "freight",
+      "HANDLING": "handling"
+    }
+  }
+]

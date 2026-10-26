@@ -1,0 +1,432 @@
+{
+  "name": "LogisticsCostDemo",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "kind": "m",
+        "expression": "\"D:/GitHubProjects/logistics-cost-analysis/data/demo\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "charges",
+        "columns": [
+          {
+            "name": "provider",
+            "dataType": "string",
+            "sourceColumn": "provider",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "tracking_id",
+            "dataType": "string",
+            "sourceColumn": "tracking_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ship_date",
+            "dataType": "dateTime",
+            "sourceColumn": "ship_date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "currency",
+            "dataType": "string",
+            "sourceColumn": "currency",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "amount_minor",
+            "dataType": "int64",
+            "sourceColumn": "amount_minor",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "fx_rate",
+            "dataType": "double",
+            "sourceColumn": "fx_rate",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "amount_cny_minor",
+            "dataType": "int64",
+            "sourceColumn": "amount_cny_minor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "weight_kg",
+            "dataType": "double",
+            "sourceColumn": "weight_kg",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "item_count",
+            "dataType": "int64",
+            "sourceColumn": "item_count",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "source_file",
+            "dataType": "string",
+            "sourceColumn": "source_file",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "source_row",
+            "dataType": "int64",
+            "sourceColumn": "source_row",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_anomaly",
+            "dataType": "int64",
+            "sourceColumn": "is_anomaly",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "amount",
+            "dataType": "double",
+            "sourceColumn": "amount",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "amount_cny",
+            "dataType": "double",
+            "sourceColumn": "amount_cny",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "parcel_key",
+            "dataType": "string",
+            "sourceColumn": "parcel_key",
+            "isHidden": true,
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "charges",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/charges.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"provider\", type text}, {\"tracking_id\", type text}, {\"ship_date\", type date}, {\"category\", type text}, {\"currency\", type text}, {\"amount_minor\", Int64.Type}, {\"fx_rate\", type number}, {\"amount_cny_minor\", Int64.Type}, {\"weight_kg\", type number}, {\"item_count\", Int64.Type}, {\"source_file\", type text}, {\"source_row\", Int64.Type}, {\"is_anomaly\", Int64.Type}, {\"amount\", type number}, {\"amount_cny\", type number}}, \"en-US\"),",
+                "    Keyed = Table.AddColumn(Typed, \"parcel_key\", each Text.Combine({[provider], [tracking_id], Date.ToText([ship_date], \"yyyy-MM-dd\")}, \"|\"), type text)",
+                "in",
+                "    Keyed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Cost CNY",
+            "expression": "DIVIDE(SUM(charges[amount_cny_minor]), 100)",
+            "formatString": "#,0.00",
+            "description": "Selected charge cost, in fictional CNY."
+          },
+          {
+            "name": "Freight CNY",
+            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[category] = \"freight\"))",
+            "formatString": "#,0.00",
+            "description": "Freight in current scope; handling-only selection gives blank."
+          },
+          {
+            "name": "Parcels",
+            "expression": "COUNTROWS(parcels)",
+            "formatString": "#,0",
+            "description": "Date/provider filtered parcels; category does not reduce this denominator."
+          },
+          {
+            "name": "Items",
+            "expression": "SUM(parcels[item_count])",
+            "formatString": "#,0",
+            "description": "Each parcel counted once. Not summed on charges."
+          },
+          {
+            "name": "Cost per Parcel CNY",
+            "expression": "DIVIDE([Total Cost CNY], [Parcels])",
+            "formatString": "#,0.00",
+            "description": "Selected category cost per all date/provider selected parcels."
+          },
+          {
+            "name": "Cost per Item CNY",
+            "expression": "DIVIDE([Total Cost CNY], [Items])",
+            "formatString": "#,0.00",
+            "description": "Selected category cost per all date/provider selected items."
+          },
+          {
+            "name": "Freight per Parcel CNY",
+            "expression": "DIVIDE([Freight CNY], [Parcels])",
+            "formatString": "#,0.00",
+            "description": "Every fixture parcel has freight, matching SQL freight-bearing denominator."
+          },
+          {
+            "name": "Freight per Item CNY",
+            "expression": "DIVIDE([Freight CNY], [Items])",
+            "formatString": "#,0.00",
+            "description": "Matches SQL for this fixture; see coverage check."
+          },
+          {
+            "name": "Previous Month Cost CNY",
+            "expression": "CALCULATE([Total Cost CNY], DATEADD('Date'[Date], -1, MONTH))",
+            "formatString": "#,0.00",
+            "description": "Previous calendar month in current provider/category context."
+          },
+          {
+            "name": "Cost MoM",
+            "expression": "VAR Prior = [Previous Month Cost CNY] RETURN IF(NOT ISINSCOPE('Date'[Month]) || ISBLANK([Total Cost CNY]), BLANK(), DIVIDE([Total Cost CNY] - Prior, Prior))",
+            "formatString": "0.0%",
+            "description": "Blank for missing previous month or zero denominator."
+          },
+          {
+            "name": "Category Share",
+            "expression": "DIVIDE([Total Cost CNY], CALCULATE([Total Cost CNY], REMOVEFILTERS(charges[category])))",
+            "formatString": "0.0%",
+            "description": "Share of all categories, retaining date/provider filters."
+          },
+          {
+            "name": "Charge Lines",
+            "expression": "COUNTROWS(charges)",
+            "formatString": "#,0",
+            "description": "Accepted fee lines in selected scope."
+          },
+          {
+            "name": "Review Charge Lines",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(charges), KEEPFILTERS(charges[is_anomaly] = 1)), 0)",
+            "formatString": "#,0",
+            "description": "Charge >400 fictional CNY; not a proven billing error."
+          },
+          {
+            "name": "Review Cost CNY",
+            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[is_anomaly] = 1))",
+            "formatString": "#,0.00",
+            "description": "Flagged charge amount, not demonstrated savings."
+          },
+          {
+            "name": "Rejected Rows All Data",
+            "expression": "COUNTROWS(rejected)",
+            "formatString": "#,0",
+            "description": "Global rejected snapshot. No date/provider/category filtering."
+          },
+          {
+            "name": "Freight Coverage Parcels",
+            "expression": "CALCULATE(DISTINCTCOUNT(charges[parcel_key]), REMOVEFILTERS(charges[category]), charges[category] = \"freight\")",
+            "formatString": "#,0",
+            "description": "Should equal Parcels under date/provider filters for this fixture."
+          }
+        ]
+      },
+      {
+        "name": "parcels",
+        "columns": [
+          {
+            "name": "provider",
+            "dataType": "string",
+            "sourceColumn": "provider",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "tracking_id",
+            "dataType": "string",
+            "sourceColumn": "tracking_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ship_date",
+            "dataType": "dateTime",
+            "sourceColumn": "ship_date",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "item_count",
+            "dataType": "int64",
+            "sourceColumn": "item_count",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "weight_kg",
+            "dataType": "double",
+            "sourceColumn": "weight_kg",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "parcel_key",
+            "dataType": "string",
+            "sourceColumn": "parcel_key",
+            "isHidden": true,
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "parcels",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/parcels.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"provider\", type text}, {\"tracking_id\", type text}, {\"ship_date\", type date}, {\"item_count\", Int64.Type}, {\"weight_kg\", type number}}, \"en-US\"),",
+                "    Keyed = Table.AddColumn(Typed, \"parcel_key\", each Text.Combine({[provider], [tracking_id], Date.ToText([ship_date], \"yyyy-MM-dd\")}, \"|\"), type text)",
+                "in",
+                "    Keyed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "rejected",
+        "columns": [
+          {
+            "name": "source_file",
+            "dataType": "string",
+            "sourceColumn": "source_file",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "source_row",
+            "dataType": "int64",
+            "sourceColumn": "source_row",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason",
+            "dataType": "string",
+            "sourceColumn": "reason",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "rejected",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"/rejected.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"source_file\", type text}, {\"source_row\", Int64.Type}, {\"reason\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Date",
+        "dataCategory": "Time",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "[Date]",
+            "isKey": true,
+            "formatString": "yyyy-MM-dd",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn",
+            "isNameInferred": true
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "type": "calculated",
+            "expression": "YEAR('Date'[Date])",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "FORMAT('Date'[Date], \"yyyy-MM\")",
+            "sortByColumn": "MonthIndex",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MonthIndex",
+            "dataType": "int64",
+            "type": "calculated",
+            "expression": "YEAR('Date'[Date]) * 100 + MONTH('Date'[Date])",
+            "isHidden": true,
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Date",
+            "mode": "import",
+            "source": {
+              "type": "calculated",
+              "expression": "CALENDAR(DATE(2026,1,1), DATE(2026,12,31))"
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Date_to_Parcels",
+        "fromTable": "parcels",
+        "fromColumn": "ship_date",
+        "fromCardinality": "many",
+        "toTable": "Date",
+        "toColumn": "Date",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "Parcels_to_Charges",
+        "fromTable": "charges",
+        "fromColumn": "parcel_key",
+        "fromCardinality": "many",
+        "toTable": "parcels",
+        "toColumn": "parcel_key",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DataFolder\", \"charges\", \"parcels\", \"rejected\"]"
+      },
+      {
+        "name": "DemoStatus",
+        "value": "Synthetic only; pending Power BI Desktop validation"
+      }
+    ]
+  }
+}

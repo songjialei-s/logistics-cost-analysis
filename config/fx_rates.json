@@ -1,0 +1,11 @@
+{
+  "base_currency": "CNY",
+  "policy": "Fictional fixed rates for demo dates only; not market rates. Reject dates outside coverage.",
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-03-31",
+  "rates": {
+    "CNY": "1",
+    "USD": "7",
+    "EUR": "8"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "synthetic_only": true,
+  "source": "Independent deterministic project generator and existing ETL output",
+  "period": "2026-01 to 2026-03",
+  "sha256": {
+    "charges.csv": "418bd86e6a0cdb2eaedda2fbb353c7363ebdb06cc8d5424b59d83b27099083dc",
+    "parcels.csv": "533f208ae2184abcdf5ca62707d70df4702d9c9249f763fb7dcc6c94cb58f1fd",
+    "rejected.csv": "f69eee87e55482d546ed12e3677a898e8868211975d03c469b726cafbe1076f6"
+  },
+  "rows": {
+    "charges": 144,
+    "parcels": 72,
+    "rejected": 18
+  },
+  "expected": {
+    "total_cost_cny": 7947,
+    "freight_cny": 7179,
+    "items": 144,
+    "anomaly_lines": 1
+  }
+}

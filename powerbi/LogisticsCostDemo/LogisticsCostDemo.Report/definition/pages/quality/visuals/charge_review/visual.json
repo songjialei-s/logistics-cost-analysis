@@ -1,0 +1,234 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "charge_review",
+  "position": {
+    "x": 24,
+    "y": 300,
+    "z": 29,
+    "width": 1230,
+    "height": 250,
+    "tabOrder": 29
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "parcels"
+                    }
+                  },
+                  "Property": "provider"
+                }
+              },
+              "queryRef": "parcels.provider",
+              "nativeQueryRef": "provider"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "tracking_id"
+                }
+              },
+              "queryRef": "charges.tracking_id",
+              "nativeQueryRef": "tracking_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "ship_date"
+                }
+              },
+              "queryRef": "charges.ship_date",
+              "nativeQueryRef": "ship_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "charges.category",
+              "nativeQueryRef": "category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "amount_cny"
+                }
+              },
+              "queryRef": "charges.amount_cny",
+              "nativeQueryRef": "amount_cny"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "is_anomaly"
+                }
+              },
+              "queryRef": "charges.is_anomaly",
+              "nativeQueryRef": "is_anomaly"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "source_file"
+                }
+              },
+              "queryRef": "charges.source_file",
+              "nativeQueryRef": "source_file"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "charges"
+                    }
+                  },
+                  "Property": "source_row"
+                }
+              },
+              "queryRef": "charges.source_row",
+              "nativeQueryRef": "source_row"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'高费用待核查清单（单笔费用 > 400元）'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#334155'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {}
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "review_only",
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "charges",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "c"
+                          }
+                        },
+                        "Property": "is_anomaly"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "1L"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "charges"
+              }
+            },
+            "Property": "is_anomaly"
+          }
+        }
+      }
+    ]
+  }
+}
