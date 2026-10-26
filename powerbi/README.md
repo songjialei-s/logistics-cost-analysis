@@ -1,6 +1,6 @@
 # Power BI 独立物流成本演示
-状态：已生成 PBIP、模型、三页图表配置、DAX 和固定合成 CSV；**待 Desktop 验证**。
-未生成二进制 PBIX，也没有经过 Desktop 刷新、渲染或截图验证。
+状态：已有三页历史Desktop截图及主要数值核对；最后布局与交互修订仍待Desktop验证。
+未生成二进制PBIX；已有真实历史截图，不代表最后布局已验证。
 所有实现独立编写；只读取本演示项目的数据，不依赖任何公司文件或服务。
 
 ## 1. 打开哪个文件
@@ -60,7 +60,7 @@ powerbi/logistics_cost_demo.pbix。不要仅修改扩展名。
 powerbi/LogisticsCostDemo完整项目、DAX/M/说明、经验证PBIX及实际截图。
 不提交：runtime、.venv、.env、__pycache__、任何.pbi目录或本机缓存/凭据。
 现有data/output被忽略，固定data/demo可提交。
-发布前审查Changes/暂存区，仅在独立项目提交；本次没有init、commit、push或远程发布。
+发布前审查Changes/暂存区，仅在独立项目提交；本地已有Initial commit；本轮不提交、不推送。
 文档及README中的“待Desktop验证”应在实际操作通过后才更新。
 
 ## 8. 若PBIP打不开：手工兜底
@@ -88,3 +88,8 @@ python powerbi/validate_demo.py --schemas
 构建器会更新固定CSV快照及项目定义，不是平常查看报表的必要步骤，
 只有主动更新合成样本后才运行 python powerbi/build_demo.py，然后重新校验。
 不要在Desktop同时编辑项目时重跑构建器，以免覆盖你的演示页面调整。
+
+历史截图在 screenshots/archive/pre-polish/，不得视作最终版；逐页验收与最终路径见 screenshots/README.md。
+
+
+最新状态：用户已确认最终Desktop验证完成；当前项目中尚无新版三张PNG和独立PBIX，文件核查尚未完成。历史图继续明确标记为旧版，不替换为不存在的图片。

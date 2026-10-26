@@ -1,6 +1,6 @@
 # Independent demo metric definitions
 
-Status: DAX execution and rendering 待 Desktop 验证.
+Status: historical Desktop screenshots confirm baseline totals; latest layout/interactions 待 Desktop 验证.
 
 |Measure|Definition|
 |---|---|
@@ -13,7 +13,7 @@ Status: DAX execution and rendering 待 Desktop 验证.
 |Freight per Parcel CNY|Every fixture parcel has freight, matching SQL freight-bearing denominator.|
 |Freight per Item CNY|Matches SQL for this fixture; see coverage check.|
 |Previous Month Cost CNY|Previous calendar month in current provider/category context.|
-|Cost MoM|Blank for missing previous month or zero denominator.|
+|Cost MoM|Month rows only; blank outside Date[Month] scope or for missing/zero previous cost.|
 |Category Share|Share of all categories, retaining date/provider filters.|
 |Charge Lines|Accepted fee lines in selected scope.|
 |Review Charge Lines|Charge >400 fictional CNY; not a proven billing error.|
@@ -29,3 +29,6 @@ check Freight Coverage Parcels = Parcels before applying SQL freight metrics to 
 Rejected rows are global and disconnected; do not invent ship dates.
 Months with no costs/previous month show blank growth, not zero.
 There are no revenue, margin, service-quality or demonstrated-savings measures.
+
+
+最新状态：用户已确认最终Desktop验证完成；当前项目中尚无新版三张PNG和独立PBIX，文件核查尚未完成。历史图继续明确标记为旧版，不替换为不存在的图片。

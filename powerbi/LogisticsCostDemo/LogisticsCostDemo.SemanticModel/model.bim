@@ -1,20 +1,50 @@
 {
-  "name": "LogisticsCostDemo",
-  "compatibilityLevel": 1600,
+  "compatibilityLevel": 1606,
   "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DataFolder\", \"charges\", \"parcels\", \"rejected\"]"
+      },
+      {
+        "name": "DemoStatus",
+        "value": "Synthetic only; pending Power BI Desktop validation"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
     "culture": "en-US",
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "expressions": [
       {
         "name": "DataFolder",
-        "kind": "m",
-        "expression": "\"D:/GitHubProjects/logistics-cost-analysis/data/demo\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
         "annotations": [
           {
             "name": "PBI_ResultType",
             "value": "Text"
           }
-        ]
+        ],
+        "expression": "\"D:/GitHubProjects/logistics-cost-analysis/data/demo\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "eb332529-3df0-4028-8d5d-133e9a7527a1"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Date_to_Parcels",
+        "fromColumn": "ship_date",
+        "fromTable": "parcels",
+        "toColumn": "Date",
+        "toTable": "Date"
+      },
+      {
+        "name": "Parcels_to_Charges",
+        "fromColumn": "parcel_key",
+        "fromTable": "charges",
+        "toColumn": "parcel_key",
+        "toTable": "parcels"
       }
     ],
     "tables": [
@@ -24,106 +54,237 @@
           {
             "name": "provider",
             "dataType": "string",
+            "lineageTag": "2b68673a-4b9d-42b9-80ed-0a1d81e399e7",
             "sourceColumn": "provider",
             "summarizeBy": "none"
           },
           {
             "name": "tracking_id",
             "dataType": "string",
+            "lineageTag": "82ccce66-8984-466f-bffa-faa8503d1c00",
             "sourceColumn": "tracking_id",
             "summarizeBy": "none"
           },
           {
             "name": "ship_date",
             "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "lineageTag": "c2206854-c585-41f0-a019-34f6a32246d9",
             "sourceColumn": "ship_date",
-            "summarizeBy": "none",
-            "formatString": "yyyy-MM-dd"
+            "summarizeBy": "none"
           },
           {
             "name": "category",
             "dataType": "string",
+            "lineageTag": "2144fa21-5851-4011-a8ca-f7fdfdcfe9bc",
             "sourceColumn": "category",
             "summarizeBy": "none"
           },
           {
             "name": "currency",
             "dataType": "string",
+            "lineageTag": "865f1214-96f6-424e-9626-a77c2e38355f",
             "sourceColumn": "currency",
             "summarizeBy": "none"
           },
           {
             "name": "amount_minor",
             "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "3f9e6393-c1b1-4584-af83-b1421edc3157",
             "sourceColumn": "amount_minor",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "fx_rate",
             "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "225f21dc-6769-4b2b-bbca-f18d55d1ddbb",
             "sourceColumn": "fx_rate",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "amount_cny_minor",
             "dataType": "int64",
+            "lineageTag": "e68100c7-e81b-4706-81fa-2cc8456ae562",
             "sourceColumn": "amount_cny_minor",
             "summarizeBy": "none"
           },
           {
             "name": "weight_kg",
             "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "2ef5e1fd-112f-4207-a373-274cc50e4bbb",
             "sourceColumn": "weight_kg",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "item_count",
             "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "b09030f5-23c6-4c80-8611-68dace552969",
             "sourceColumn": "item_count",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "source_file",
             "dataType": "string",
+            "lineageTag": "3e69bc47-98d0-4aa8-927c-dda77610dc94",
             "sourceColumn": "source_file",
             "summarizeBy": "none"
           },
           {
             "name": "source_row",
             "dataType": "int64",
+            "lineageTag": "e9ce57cf-8a7e-4dcc-9f58-29a5e11e54f8",
             "sourceColumn": "source_row",
             "summarizeBy": "none"
           },
           {
             "name": "is_anomaly",
             "dataType": "int64",
+            "lineageTag": "52742586-db1b-4a60-bcd7-0bd17d948d93",
             "sourceColumn": "is_anomaly",
             "summarizeBy": "none"
           },
           {
             "name": "amount",
             "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "27e57f5b-86c2-4fdf-a4a7-32536f37d1b7",
             "sourceColumn": "amount",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "amount_cny",
             "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "3f5cc114-cb99-46f5-8998-7bec3479f865",
             "sourceColumn": "amount_cny",
-            "summarizeBy": "none",
-            "isHidden": true
+            "summarizeBy": "none"
           },
           {
             "name": "parcel_key",
             "dataType": "string",
-            "sourceColumn": "parcel_key",
             "isHidden": true,
+            "lineageTag": "cdcc8221-a97a-4817-906b-c0960c403e77",
+            "sourceColumn": "parcel_key",
             "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "9eafd416-61ba-4548-9b7b-2e6c31aac054",
+        "measures": [
+          {
+            "name": "Total Cost CNY",
+            "description": "Selected charge cost, in fictional CNY.",
+            "expression": "DIVIDE(SUM(charges[amount_cny_minor]), 100)",
+            "formatString": "#,0.00",
+            "lineageTag": "6b2c028a-3e9d-4b27-9ae3-ebd23516cf5c"
+          },
+          {
+            "name": "Freight CNY",
+            "description": "Freight in current scope; handling-only selection gives blank.",
+            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[category] = \"freight\"))",
+            "formatString": "#,0.00",
+            "lineageTag": "f0e549e1-6771-464b-95c2-928a4a0fa12c"
+          },
+          {
+            "name": "Parcels",
+            "description": "Date/provider filtered parcels; category does not reduce this denominator.",
+            "expression": "COUNTROWS(parcels)",
+            "formatString": "#,0",
+            "lineageTag": "8f336a0a-5817-49da-83c1-e2a7247c52f5"
+          },
+          {
+            "name": "Items",
+            "description": "Each parcel counted once. Not summed on charges.",
+            "expression": "SUM(parcels[item_count])",
+            "formatString": "#,0",
+            "lineageTag": "6b2759fc-4cfd-4b3f-a59c-e07bd46bd9d6"
+          },
+          {
+            "name": "Cost per Parcel CNY",
+            "description": "Selected category cost per all date/provider selected parcels.",
+            "expression": "DIVIDE([Total Cost CNY], [Parcels])",
+            "formatString": "#,0.00",
+            "lineageTag": "9d0a589f-bed7-4e59-8bd9-50802c8e9882"
+          },
+          {
+            "name": "Cost per Item CNY",
+            "description": "Selected category cost per all date/provider selected items.",
+            "expression": "DIVIDE([Total Cost CNY], [Items])",
+            "formatString": "#,0.00",
+            "lineageTag": "939555c1-082c-4098-9596-de57edcea459"
+          },
+          {
+            "name": "Freight per Parcel CNY",
+            "description": "Every fixture parcel has freight, matching SQL freight-bearing denominator.",
+            "expression": "DIVIDE([Freight CNY], [Parcels])",
+            "formatString": "#,0.00",
+            "lineageTag": "436956ae-cfa4-402e-a4e5-557388bd134d"
+          },
+          {
+            "name": "Freight per Item CNY",
+            "description": "Matches SQL for this fixture; see coverage check.",
+            "expression": "DIVIDE([Freight CNY], [Items])",
+            "formatString": "#,0.00",
+            "lineageTag": "fdc58890-9c86-4df5-a68d-5f62bbbbb361"
+          },
+          {
+            "name": "Previous Month Cost CNY",
+            "description": "Previous calendar month in current provider/category context.",
+            "expression": "CALCULATE([Total Cost CNY], DATEADD('Date'[Date], -1, MONTH))",
+            "formatString": "#,0.00",
+            "lineageTag": "b802440e-b68a-420f-8434-670bd9c69ef4"
+          },
+          {
+            "name": "Cost MoM",
+            "description": "Blank for missing previous month or zero denominator.",
+            "expression": "VAR Prior = [Previous Month Cost CNY] RETURN IF(NOT ISINSCOPE('Date'[Month]) || ISBLANK([Total Cost CNY]), BLANK(), DIVIDE([Total Cost CNY] - Prior, Prior))",
+            "formatString": "0.0%",
+            "lineageTag": "a29f91ab-bd66-4736-b5ac-6320716fd7ff"
+          },
+          {
+            "name": "Category Share",
+            "description": "Share of all categories, retaining date/provider filters.",
+            "expression": "DIVIDE([Total Cost CNY], CALCULATE([Total Cost CNY], REMOVEFILTERS(charges[category])))",
+            "formatString": "0.0%",
+            "lineageTag": "32b6f323-cda0-463b-b6c2-e8357ae21c0d"
+          },
+          {
+            "name": "Charge Lines",
+            "description": "Accepted fee lines in selected scope.",
+            "expression": "COUNTROWS(charges)",
+            "formatString": "#,0",
+            "lineageTag": "78c6b246-3a90-44f1-ae92-b57715605528"
+          },
+          {
+            "name": "Review Charge Lines",
+            "description": "Charge >400 fictional CNY; not a proven billing error.",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(charges), KEEPFILTERS(charges[is_anomaly] = 1)), 0)",
+            "formatString": "#,0",
+            "lineageTag": "c0edec57-ce36-4949-bfad-0cb9dd8b12cc"
+          },
+          {
+            "name": "Review Cost CNY",
+            "description": "Flagged charge amount, not demonstrated savings.",
+            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[is_anomaly] = 1))",
+            "formatString": "#,0.00",
+            "lineageTag": "cfc4333c-0cf1-4cf4-9620-eb5697d7aa24"
+          },
+          {
+            "name": "Rejected Rows All Data",
+            "description": "Global rejected snapshot. No date/provider/category filtering.",
+            "expression": "COUNTROWS(rejected)",
+            "formatString": "#,0",
+            "lineageTag": "ca036f57-7470-44ac-a645-e7716c4e60b7"
+          },
+          {
+            "name": "Freight Coverage Parcels",
+            "description": "Should equal Parcels under date/provider filters for this fixture.",
+            "expression": "CALCULATE(DISTINCTCOUNT(charges[parcel_key]), REMOVEFILTERS(charges[category]), charges[category] = \"freight\")",
+            "formatString": "#,0",
+            "lineageTag": "22a1b0d0-2a8a-48a6-b0c6-81030c34346e"
           }
         ],
         "partitions": [
@@ -131,7 +292,6 @@
             "name": "charges",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
                 "    Source = Csv.Document(File.Contents(DataFolder & \"/charges.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
@@ -140,106 +300,9 @@
                 "    Keyed = Table.AddColumn(Typed, \"parcel_key\", each Text.Combine({[provider], [tracking_id], Date.ToText([ship_date], \"yyyy-MM-dd\")}, \"|\"), type text)",
                 "in",
                 "    Keyed"
-              ]
+              ],
+              "type": "m"
             }
-          }
-        ],
-        "measures": [
-          {
-            "name": "Total Cost CNY",
-            "expression": "DIVIDE(SUM(charges[amount_cny_minor]), 100)",
-            "formatString": "#,0.00",
-            "description": "Selected charge cost, in fictional CNY."
-          },
-          {
-            "name": "Freight CNY",
-            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[category] = \"freight\"))",
-            "formatString": "#,0.00",
-            "description": "Freight in current scope; handling-only selection gives blank."
-          },
-          {
-            "name": "Parcels",
-            "expression": "COUNTROWS(parcels)",
-            "formatString": "#,0",
-            "description": "Date/provider filtered parcels; category does not reduce this denominator."
-          },
-          {
-            "name": "Items",
-            "expression": "SUM(parcels[item_count])",
-            "formatString": "#,0",
-            "description": "Each parcel counted once. Not summed on charges."
-          },
-          {
-            "name": "Cost per Parcel CNY",
-            "expression": "DIVIDE([Total Cost CNY], [Parcels])",
-            "formatString": "#,0.00",
-            "description": "Selected category cost per all date/provider selected parcels."
-          },
-          {
-            "name": "Cost per Item CNY",
-            "expression": "DIVIDE([Total Cost CNY], [Items])",
-            "formatString": "#,0.00",
-            "description": "Selected category cost per all date/provider selected items."
-          },
-          {
-            "name": "Freight per Parcel CNY",
-            "expression": "DIVIDE([Freight CNY], [Parcels])",
-            "formatString": "#,0.00",
-            "description": "Every fixture parcel has freight, matching SQL freight-bearing denominator."
-          },
-          {
-            "name": "Freight per Item CNY",
-            "expression": "DIVIDE([Freight CNY], [Items])",
-            "formatString": "#,0.00",
-            "description": "Matches SQL for this fixture; see coverage check."
-          },
-          {
-            "name": "Previous Month Cost CNY",
-            "expression": "CALCULATE([Total Cost CNY], DATEADD('Date'[Date], -1, MONTH))",
-            "formatString": "#,0.00",
-            "description": "Previous calendar month in current provider/category context."
-          },
-          {
-            "name": "Cost MoM",
-            "expression": "VAR Prior = [Previous Month Cost CNY] RETURN IF(NOT ISINSCOPE('Date'[Month]) || ISBLANK([Total Cost CNY]), BLANK(), DIVIDE([Total Cost CNY] - Prior, Prior))",
-            "formatString": "0.0%",
-            "description": "Blank for missing previous month or zero denominator."
-          },
-          {
-            "name": "Category Share",
-            "expression": "DIVIDE([Total Cost CNY], CALCULATE([Total Cost CNY], REMOVEFILTERS(charges[category])))",
-            "formatString": "0.0%",
-            "description": "Share of all categories, retaining date/provider filters."
-          },
-          {
-            "name": "Charge Lines",
-            "expression": "COUNTROWS(charges)",
-            "formatString": "#,0",
-            "description": "Accepted fee lines in selected scope."
-          },
-          {
-            "name": "Review Charge Lines",
-            "expression": "COALESCE(CALCULATE(COUNTROWS(charges), KEEPFILTERS(charges[is_anomaly] = 1)), 0)",
-            "formatString": "#,0",
-            "description": "Charge >400 fictional CNY; not a proven billing error."
-          },
-          {
-            "name": "Review Cost CNY",
-            "expression": "CALCULATE([Total Cost CNY], KEEPFILTERS(charges[is_anomaly] = 1))",
-            "formatString": "#,0.00",
-            "description": "Flagged charge amount, not demonstrated savings."
-          },
-          {
-            "name": "Rejected Rows All Data",
-            "expression": "COUNTROWS(rejected)",
-            "formatString": "#,0",
-            "description": "Global rejected snapshot. No date/provider/category filtering."
-          },
-          {
-            "name": "Freight Coverage Parcels",
-            "expression": "CALCULATE(DISTINCTCOUNT(charges[parcel_key]), REMOVEFILTERS(charges[category]), charges[category] = \"freight\")",
-            "formatString": "#,0",
-            "description": "Should equal Parcels under date/provider filters for this fixture."
           }
         ]
       },
@@ -249,48 +312,54 @@
           {
             "name": "provider",
             "dataType": "string",
+            "lineageTag": "cbb759b3-80ad-4938-9564-6bf4b85b234f",
             "sourceColumn": "provider",
             "summarizeBy": "none"
           },
           {
             "name": "tracking_id",
             "dataType": "string",
+            "lineageTag": "18309e98-9176-4674-898b-df8e304f73f1",
             "sourceColumn": "tracking_id",
             "summarizeBy": "none"
           },
           {
             "name": "ship_date",
             "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "lineageTag": "cba06fbb-c61d-4ab1-b263-5c1fcad9b9c3",
             "sourceColumn": "ship_date",
-            "summarizeBy": "none",
-            "formatString": "yyyy-MM-dd"
+            "summarizeBy": "none"
           },
           {
             "name": "item_count",
             "dataType": "int64",
+            "lineageTag": "3b4f886a-0de5-40e1-b692-4352e102a504",
             "sourceColumn": "item_count",
             "summarizeBy": "none"
           },
           {
             "name": "weight_kg",
             "dataType": "double",
+            "lineageTag": "53c50427-40b9-4c2e-b6a7-e5e340980108",
             "sourceColumn": "weight_kg",
             "summarizeBy": "none"
           },
           {
             "name": "parcel_key",
             "dataType": "string",
-            "sourceColumn": "parcel_key",
             "isHidden": true,
+            "lineageTag": "6db670f4-4319-4fc6-ad48-75af2a96af5b",
+            "sourceColumn": "parcel_key",
             "summarizeBy": "none"
           }
         ],
+        "lineageTag": "e9d448a4-005e-4deb-b566-309e818dec77",
         "partitions": [
           {
             "name": "parcels",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
                 "    Source = Csv.Document(File.Contents(DataFolder & \"/parcels.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
@@ -299,7 +368,8 @@
                 "    Keyed = Table.AddColumn(Typed, \"parcel_key\", each Text.Combine({[provider], [tracking_id], Date.ToText([ship_date], \"yyyy-MM-dd\")}, \"|\"), type text)",
                 "in",
                 "    Keyed"
-              ]
+              ],
+              "type": "m"
             }
           }
         ]
@@ -310,28 +380,31 @@
           {
             "name": "source_file",
             "dataType": "string",
+            "lineageTag": "fa92da8d-ac3c-4a8c-a8a6-e4e1878bb9b5",
             "sourceColumn": "source_file",
             "summarizeBy": "none"
           },
           {
             "name": "source_row",
             "dataType": "int64",
+            "lineageTag": "5805dffa-4fdf-4812-b2d4-ac7385a3eeab",
             "sourceColumn": "source_row",
             "summarizeBy": "none"
           },
           {
             "name": "reason",
             "dataType": "string",
+            "lineageTag": "1cfee6b8-10f4-4185-9308-e9e6327de57c",
             "sourceColumn": "reason",
             "summarizeBy": "none"
           }
         ],
+        "lineageTag": "cfa71705-b602-4895-a87d-9d3daf6e328a",
         "partitions": [
           {
             "name": "rejected",
             "mode": "import",
             "source": {
-              "type": "m",
               "expression": [
                 "let",
                 "    Source = Csv.Document(File.Contents(DataFolder & \"/rejected.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
@@ -339,93 +412,65 @@
                 "    Typed = Table.TransformColumnTypes(Headers, {{\"source_file\", type text}, {\"source_row\", Int64.Type}, {\"reason\", type text}}, \"en-US\")",
                 "in",
                 "    Typed"
-              ]
+              ],
+              "type": "m"
             }
           }
         ]
       },
       {
         "name": "Date",
-        "dataCategory": "Time",
         "columns": [
           {
             "name": "Date",
             "dataType": "dateTime",
-            "sourceColumn": "[Date]",
-            "isKey": true,
             "formatString": "yyyy-MM-dd",
+            "isKey": true,
+            "isNameInferred": true,
+            "lineageTag": "20ef8311-72e8-43ee-9a5b-1b003e2503db",
+            "sourceColumn": "[Date]",
             "summarizeBy": "none",
-            "type": "calculatedTableColumn",
-            "isNameInferred": true
+            "type": "calculatedTableColumn"
           },
           {
             "name": "Year",
             "dataType": "int64",
-            "type": "calculated",
             "expression": "YEAR('Date'[Date])",
-            "summarizeBy": "none"
+            "lineageTag": "7fb7ff2d-9e63-473a-9190-7ce1aed99fff",
+            "summarizeBy": "none",
+            "type": "calculated"
           },
           {
             "name": "Month",
             "dataType": "string",
-            "type": "calculated",
             "expression": "FORMAT('Date'[Date], \"yyyy-MM\")",
+            "lineageTag": "eeef03dc-e597-41d7-9eab-85db1ade3760",
             "sortByColumn": "MonthIndex",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "type": "calculated"
           },
           {
             "name": "MonthIndex",
             "dataType": "int64",
-            "type": "calculated",
             "expression": "YEAR('Date'[Date]) * 100 + MONTH('Date'[Date])",
             "isHidden": true,
-            "summarizeBy": "none"
+            "lineageTag": "0db0b628-29d8-4fd7-9100-5d99e1f88944",
+            "summarizeBy": "none",
+            "type": "calculated"
           }
         ],
+        "dataCategory": "Time",
+        "lineageTag": "515bf1ea-3d6b-4276-9b66-bd8498fa7db7",
         "partitions": [
           {
             "name": "Date",
             "mode": "import",
             "source": {
-              "type": "calculated",
-              "expression": "CALENDAR(DATE(2026,1,1), DATE(2026,12,31))"
+              "expression": "CALENDAR(DATE(2026,1,1), DATE(2026,12,31))",
+              "type": "calculated"
             }
           }
         ]
-      }
-    ],
-    "relationships": [
-      {
-        "name": "Date_to_Parcels",
-        "fromTable": "parcels",
-        "fromColumn": "ship_date",
-        "fromCardinality": "many",
-        "toTable": "Date",
-        "toColumn": "Date",
-        "toCardinality": "one",
-        "crossFilteringBehavior": "oneDirection",
-        "isActive": true
-      },
-      {
-        "name": "Parcels_to_Charges",
-        "fromTable": "charges",
-        "fromColumn": "parcel_key",
-        "fromCardinality": "many",
-        "toTable": "parcels",
-        "toColumn": "parcel_key",
-        "toCardinality": "one",
-        "crossFilteringBehavior": "oneDirection",
-        "isActive": true
-      }
-    ],
-    "annotations": [
-      {
-        "name": "PBI_QueryOrder",
-        "value": "[\"DataFolder\", \"charges\", \"parcels\", \"rejected\"]"
-      },
-      {
-        "name": "DemoStatus",
-        "value": "Synthetic only; pending Power BI Desktop validation"
       }
     ]
   }

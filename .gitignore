@@ -9,3 +9,6 @@ data/output/
 
 # Power BI local cache and settings
 **/.pbi/
+
+.env.*
+!.env.example

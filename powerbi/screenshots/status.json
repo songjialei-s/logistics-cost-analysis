@@ -1,0 +1,23 @@
+{
+  "baseline_screenshots": "archive/pre-polish",
+  "final_screenshots_verified": false,
+  "latest_desktop_layout_verified": true,
+  "final_required": [
+    "01-overview.png",
+    "02-structure.png",
+    "03-quality.png"
+  ],
+  "archive_sha256": {
+    "01-overview.png": "024e7d9e01efeed103089d44e19b96feb9e22541d526d8e3c75ceb457326bc60",
+    "02-structure.png": "5ba5d93ed84188f59aee44dc17f084906219ba7a89b384a6ee15def363bc29c8",
+    "03-quality.png": "a3365ea06e4efe0d896a73f225d00198acf042be56e73c4800198e915c9fafc2"
+  },
+  "user_reported_desktop_validation_complete": true,
+  "desktop_verification_source": "User explicitly confirmed completion in chat; new image/PBIX files not yet found in project",
+  "missing_final_screenshots": [
+    "01-overview.png",
+    "02-structure.png",
+    "03-quality.png"
+  ],
+  "pbix_found": false
+}

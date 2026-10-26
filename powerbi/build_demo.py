@@ -7,6 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 BI=ROOT/'powerbi'
 DEMO=ROOT/'data/demo'
 PROJECT=BI/'LogisticsCostDemo'
+sys.path.insert(0, str(ROOT))
+from src.demo_snapshot import canonical_csv_bytes
 def write(p,text):
     p.parent.mkdir(parents=True,exist_ok=True)
     p.write_text(text,encoding='utf-8')
@@ -56,16 +58,17 @@ def build():
     hashes={}
     for name in ['charges.csv','parcels.csv','rejected.csv']:
         src=ROOT/'data/output'/name
-        shutil.copyfile(src,DEMO/name)
-        hashes[name]=hashlib.sha256(src.read_bytes()).hexdigest()
-    dump(DEMO/'manifest.json',{'synthetic_only':True,'source':'Independent deterministic project generator and existing ETL output','period':'2026-01 to 2026-03','sha256':hashes,'rows':{'charges':144,'parcels':72,'rejected':18},'expected':{'total_cost_cny':7947,'freight_cny':7179,'items':144,'anomaly_lines':1}})
+        payload = canonical_csv_bytes(src.read_bytes())
+        (DEMO/name).write_bytes(payload)
+        hashes[name]=hashlib.sha256(payload).hexdigest()
+    dump(DEMO/'manifest.json',{'synthetic_only':True,'encoding':'UTF-8 (no BOM)','line_endings':'LF','source':'Independent deterministic project generator and existing ETL output','period':'2026-01 to 2026-03','sha256':hashes,'rows':{'charges':144,'parcels':72,'rejected':18},'expected':{'total_cost_cny':7947,'freight_cny':7179,'items':144,'anomaly_lines':1}})
     write(DEMO/'README.md',"""# Fixed synthetic snapshot
 All rows originate from this repository's fictional generator. This is not masked business data.
 charges: one charge category per provider / tracking_id / ship_date.
 parcels: one row per provider / tracking_id / ship_date.
 rejected: one rejected input row, with synthetic source filename and row number only.
 Amounts used in BI are integer CNY cents; units come from parcels only.
-manifest.json records hashes and fixture expectations.
+manifest.json records exact byte hashes and fixture expectations. CSV is UTF-8 without BOM and LF; Git enforces LF.
 Run the normal ETL separately; use powerbi/build_demo.py only when intentionally updating this fixed snapshot.
 """)
     metrics=[
@@ -195,8 +198,8 @@ Months with no costs/previous month show blank growth, not zero.
 There are no revenue, margin, service-quality or demonstrated-savings measures.
 """)
     write(BI/'README.md',"""# Power BI 独立物流成本演示
-状态：已生成 PBIP、模型、三页图表配置、DAX 和固定合成 CSV；**待 Desktop 验证**。
-未生成二进制 PBIX，也没有经过 Desktop 刷新、渲染或截图验证。
+状态：已有三页历史Desktop截图及主要数值核对；最后布局与交互修订仍待Desktop验证。
+未生成二进制PBIX；已有真实历史截图，不代表最后布局已验证。
 所有实现独立编写；只读取本演示项目的数据，不依赖任何公司文件或服务。
 
 ## 1. 打开哪个文件
@@ -256,7 +259,7 @@ powerbi/logistics_cost_demo.pbix。不要仅修改扩展名。
 powerbi/LogisticsCostDemo完整项目、DAX/M/说明、经验证PBIX及实际截图。
 不提交：runtime、.venv、.env、__pycache__、任何.pbi目录或本机缓存/凭据。
 现有data/output被忽略，固定data/demo可提交。
-发布前审查Changes/暂存区，仅在独立项目提交；本次没有init、commit、push或远程发布。
+发布前审查Changes/暂存区，仅在独立项目提交；本地已有Initial commit；后续修改需用户审查提交，禁止自动推送。
 文档及README中的“待Desktop验证”应在实际操作通过后才更新。
 
 ## 8. 若PBIP打不开：手工兜底
@@ -290,17 +293,11 @@ Month按MonthIndex排序，标记日期表。
 拒绝记录表独立，明确全量且不随切片器变化；不根据异常标记声称真实降本。
 所有页面的渲染、字体、布局、交叉筛选及DAX结果待Desktop验证。
 """)
-    write(BI/'screenshots/README.md','真实 Power BI Desktop 截图待用户完成，当前无截图。不使用伪造截图。\n')
+    if not (BI/'screenshots/README.md').exists():
+        write(BI/'screenshots/README.md', '最终Desktop截图待验证；旧截图须标记历史版本。\n')
     ign=ROOT/'.gitignore';txt=ign.read_text(encoding="utf-8")
     if '**/.pbi/' not in txt: write(ign,txt.rstrip()+'\n\n# Power BI local cache and settings\n**/.pbi/\n')
-    rd=ROOT/'README.md';txt=rd.read_text(encoding="utf-8")
-    txt=txt.replace('powerbi/README.md 提供模型与 DAX 建议；**尚未制作或验证 .pbix 报表**。','powerbi/README.md 提供独立 PBIP、模型、三页图表定义及操作步骤；**待 Power BI Desktop 验证，尚无二进制 PBIX 或实际截图**。')
-    if '## Power BI 演示项目' not in txt:txt+='\\n'.replace('\\n','\n')+"""## Power BI 演示项目
-打开 powerbi/LogisticsCostDemo/LogisticsCostDemo.pbip；
-设置DataFolder到data/demo后载入合成CSV。详见powerbi/README.md。
-项目文件静态检查与原ETL测试不能替代Desktop实测；当前仍待Desktop验证。
-"""
-    write(rd,txt)
+    # Root README is maintained independently; do not overwrite editorial status/previews.
     summary={'status':'待 Desktop 验证','checks':['synthetic fixture exact amount/item/key match','unique parcel and charge keys','all charge foreign keys matched','integer-cent totals and monthly totals','local CSV-only model','3 pages and 16 measures generated'],
       'expected':{'cost_cny':7947,'parcels':72,'items':144,'freight_cny':7179,'monthly_cny':[2360,2488,3099],'review_lines':1,'rejected_rows':18},
       'not_tested':['Power BI Desktop open','M execution in Desktop','DAX execution','visual rendering','interactive filtering','PBIX save']}

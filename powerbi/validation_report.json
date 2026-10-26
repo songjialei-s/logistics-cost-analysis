@@ -31,7 +31,7 @@
   ],
   "verified_checks": [
     "all CSV values matched independent fictional fixture, including rejection traceability",
-    "snapshot SHA256 matches manifest",
+    "snapshot UTF-8/LF bytes and SHA256 match manifest",
     "five original SQL queries run against CSV-loaded in-memory SQLite; totals and freight rates match",
     "calculated-table returned columns explicitly use calculatedTableColumn (Desktop error regression)",
     "relationship endpoints exist, one-to-many single-direction, rejected disconnected",
@@ -40,8 +40,11 @@
     "32 visuals: all fields/measures resolve and positions stay in canvas",
     "generated model sources are local demo CSV only",
     "40 PBIR/project JSON documents pass official Microsoft JSON schemas",
-    "original ETL tests pass in isolated temp directories inside demo runtime"
+    "full automated suite passes in isolated temp directories inside demo runtime"
   ],
   "official_schema_documents": 40,
-  "desktop_status": "待 Desktop 验证"
+  "desktop_status": "用户已确认完成最终Desktop验证；新版截图与PBIX未在指定项目找到",
+  "user_reported_desktop_verified": true,
+  "final_screenshots_agent_verified": false,
+  "pbix_exists": false
 }

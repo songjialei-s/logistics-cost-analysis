@@ -1,0 +1,16 @@
+{
+  "candidate_files_checked": 97,
+  "sensitive_pattern_findings": [],
+  "prohibited_candidate_files": [],
+  "staging_empty": true,
+  "head": "f0dc213",
+  "remote_count": 0,
+  "user_reported_desktop_verified": true,
+  "missing_final_screenshots": [
+    "01-overview.png",
+    "02-structure.png",
+    "03-quality.png"
+  ],
+  "pbix_exists": false,
+  "conclusion": "No detected sensitive candidates. Final release still awaits new screenshot files; PBIX absent and cannot be inspected."
+}

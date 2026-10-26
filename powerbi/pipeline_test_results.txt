@@ -1,8 +1,13 @@
+test_crlf_bom_and_lf_serialize_identically (test_demo_snapshot.SnapshotTest.test_crlf_bom_and_lf_serialize_identically) ... ok
+test_fixed_snapshot_and_manifest (test_demo_snapshot.SnapshotTest.test_fixed_snapshot_and_manifest) ... ok
+test_git_clean_filter_preserves_snapshot_bytes (test_demo_snapshot.SnapshotTest.test_git_clean_filter_preserves_snapshot_bytes) ... ok
+test_round_trip_preserves_csv_field_values (test_demo_snapshot.SnapshotTest.test_round_trip_preserves_csv_field_values) ... ok
+test_tampering_is_rejected (test_demo_snapshot.SnapshotTest.test_tampering_is_rejected) ... ok
 test_conflict_rolls_back (test_pipeline.PipelineTest.test_conflict_rolls_back) ... ok
 test_end_to_end (test_pipeline.PipelineTest.test_end_to_end) ... ok
 test_invalid_fields_and_fx (test_pipeline.PipelineTest.test_invalid_fields_and_fx) ... ok
 
 ----------------------------------------------------------------------
-Ran 3 tests in 0.338s
+Ran 8 tests in 2.664s
 
 OK

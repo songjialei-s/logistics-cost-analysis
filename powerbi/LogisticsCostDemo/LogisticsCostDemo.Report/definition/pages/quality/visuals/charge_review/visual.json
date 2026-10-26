@@ -1,17 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "charge_review",
   "position": {
     "x": 24,
     "y": 300,
     "z": 29,
-    "width": 1230,
     "height": 250,
+    "width": 1230,
     "tabOrder": 29
   },
   "visual": {
     "visualType": "tableEx",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -172,12 +171,22 @@
         }
       ]
     },
-    "objects": {}
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
       {
         "name": "review_only",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "charges"
+              }
+            },
+            "Property": "is_anomaly"
+          }
+        },
         "type": "Categorical",
         "filter": {
           "Version": 2,
@@ -217,16 +226,6 @@
               }
             }
           ]
-        },
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "charges"
-              }
-            },
-            "Property": "is_anomaly"
-          }
         }
       }
     ]

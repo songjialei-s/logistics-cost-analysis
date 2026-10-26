@@ -3,3 +3,6 @@
 *.sql text eol=lf
 *.md text eol=lf
 *.xlsx binary
+*.csv text eol=lf
+*.json text eol=lf
+*.png binary

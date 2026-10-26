@@ -42,3 +42,10 @@ definition.pbir的版本仍为4.0。同步增加版本区分和活动页面引�
 这验证了截图中这些结果，不代表所有筛选交互已测试。
 发现并修订：环比总计误显0%、筛选器截断、卡片单位缩写、异常表默认未过滤、标题对比度及说明截断。
 修改后的渲染和交互需要Desktop重新打开验证。
+
+## 发布修复验证
+快照统一UTF-8无BOM/LF、Git属性及哈希已更新；全部8项测试通过。
+其中5项快照回归含Git三种autocrlf设置的无写入clean过滤检查。
+旧截图已完整移至screenshots/archive/pre-polish并明确标历史版本。
+新版布局仍待Desktop验证，不因测试通过而标为Desktop已通过。
+详细见../docs/test_report.md与../docs/release_check.md。

@@ -1,4 +1,4 @@
-﻿provider,tracking_id,ship_date,category,currency,amount_minor,fx_rate,amount_cny_minor,weight_kg,item_count,source_file,source_row,is_anomaly,amount,amount_cny
+provider,tracking_id,ship_date,category,currency,amount_minor,fx_rate,amount_cny_minor,weight_kg,item_count,source_file,source_row,is_anomaly,amount,amount_cny
 AsterParcel,DEMO-1-1-1,2026-01-01,freight,CNY,1200,1,1200,1.2,2,AsterParcel.xlsx,2,0,12.0,12.0
 AsterParcel,DEMO-1-1-1,2026-01-01,handling,CNY,200,1,200,1.2,2,AsterParcel.xlsx,3,0,2.0,2.0
 AsterParcel,DEMO-1-1-2,2026-01-02,freight,CNY,1300,1,1300,1.4,3,AsterParcel.xlsx,4,0,13.0,13.0

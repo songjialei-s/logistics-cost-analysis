@@ -3,6 +3,8 @@ from pathlib import Path
 import sys, json, csv, sqlite3, subprocess, os, re, urllib.request, urllib.parse, urllib.error, hashlib, warnings
 ROOT=Path(__file__).resolve().parents[1]
 BI=ROOT/'powerbi'
+sys.path.insert(0, str(ROOT))
+from src.demo_snapshot import verify_snapshot
 def load(p): return json.loads(p.read_text(encoding='utf-8-sig'))
 def readcsv(p):
     with p.open(encoding='utf-8-sig',newline='') as f:return list(csv.DictReader(f))
@@ -34,9 +36,8 @@ def main():
     assert {(r['source_file'],int(r['source_row']),r['reason']) for r in rejected}==expected_rejects
     assert len(rejected)==18
     checks.append('all CSV values matched independent fictional fixture, including rejection traceability')
-    man=load(demo/'manifest.json')
-    for n,h in man['sha256'].items():assert hashlib.sha256((demo/n).read_bytes()).hexdigest()==h
-    checks.append('snapshot SHA256 matches manifest')
+    man=verify_snapshot(demo)
+    checks.append('snapshot UTF-8/LF bytes and SHA256 match manifest')
     con=sqlite3.connect(':memory:')
     con.execute('CREATE TABLE charges(provider TEXT, tracking_id TEXT, ship_date TEXT,category TEXT,amount_cny_minor INTEGER,item_count INTEGER,is_anomaly INTEGER)')
     con.executemany('INSERT INTO charges VALUES (?,?,?,?,?,?,?)',[(r['provider'],r['tracking_id'],r['ship_date'],r['category'],int(r['amount_cny_minor']),int(r['item_count']),int(r['is_anomaly'])) for r in charges])
@@ -142,12 +143,15 @@ def main():
     result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],cwd=ROOT,env=env,capture_output=True,text=True,encoding='utf-8')
     (BI/'pipeline_test_results.txt').write_text(result.stdout+result.stderr,encoding='utf-8')
     assert result.returncode==0,result.stderr
-    checks.append('original ETL tests pass in isolated temp directories inside demo runtime')
+    checks.append('full automated suite passes in isolated temp directories inside demo runtime')
     report=load(BI/'validation_report.json');report['verified_checks']=checks
     report['official_schema_documents']=schema_count
-    report['desktop_status']='待 Desktop 验证'
+    shot_status = load(BI/'screenshots/status.json')
+    report['desktop_status'] = ('用户已确认完成最终Desktop验证；最终截图文件另行核查'
+        if shot_status.get('user_reported_desktop_validation_complete')
+        else '历史三页及主要数值已由截图验证；最新布局与交互待 Desktop 验证')
+    report['user_reported_desktop_verified'] = bool(shot_status.get('user_reported_desktop_validation_complete'))
     (BI/'validation_report.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
     print(json.dumps({'checks':checks,'desktop_status':'待 Desktop 验证'},ensure_ascii=False))
 if __name__=='__main__':
     sys.dont_write_bytecode=True;sys.stdout.reconfigure(encoding='utf-8');main()
-

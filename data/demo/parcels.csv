@@ -1,4 +1,4 @@
-﻿provider,tracking_id,ship_date,item_count,weight_kg
+provider,tracking_id,ship_date,item_count,weight_kg
 AsterParcel,DEMO-1-1-1,2026-01-01,2,1.2
 AsterParcel,DEMO-1-1-2,2026-01-02,3,1.4
 AsterParcel,DEMO-1-1-3,2026-01-03,1,1.6

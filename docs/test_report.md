@@ -1,26 +1,39 @@
-# Local validation report
+# 自动化验证报告
 
-Validated on 2026-10-26 using bundled Python; library versions: {"pandas": "3.0.1", "openpyxl": "3.1.5"}.
-`python -m unittest discover -s tests -v`: 3 tests passed.
+日期：2026-10-26。仅独立合成演示项目；未连接外部数据库或业务API。
 
-Coverage: all six mappings and kg/g/lb conversions; valid amount parsing;
-invalid dates/FX coverage, negative amounts, zero weight, fractional quantities,
-unknown categories; exact duplicate skipping; conflicting duplicate transaction
-rollback; CSV exports; unchanged-file skip; changed-file rejection and rebuild;
-all five SQLite analysis statements and independently specified expected results.
+## 结果
+全部8项单元测试通过，无跳过项：
+- 原ETL三项：异常输入与汇率范围、冲突回滚、完整流程与五条SQL/增量/重建。
+- 快照五项：CRLF/BOM与LF规范化、CSV字段语义往返、固定清单校验、
+  篡改拒绝、Git clean过滤在autocrlf=true/false/input下保持原字节。
 
-First run: 6 files, 144 inserted, 6 duplicate rows skipped, 18 rejected;
-72 parcels, 144 items, 1 designed review flag.
-Second run: 6 files skipped, 0 inserted. Persisted rejects remain 18.
-Monthly costs CNY 2,360 / 2,488 / 3,099, total 7,947.
-Freight per parcel 99.708333 CNY; freight per item 49.854167 CNY.
+Git检查使用hash-object，不使用-w、不暂存、不创建提交或改Git配置。
+比较Git clean后的对象哈希与无过滤原字节哈希，因此无需实际提交即可验证
+候选文件在Git存储时不变。当前HEAD仍为旧Initial commit；
+本轮文件尚未提交，不能把旧提交视为已经修复。
 
-Text and XLSX XML scan: 25 candidate source/sample files examined;
-no detected private IP addresses, literal password/token assignments or company paths.
-No Git directory or inherited history exists. Loopback-only MySQL opt-in adapter
-is not executed. SQLite local tests make no database server or API calls.
-This is a targeted scan, not a universal secret scanner or ownership certification.
-No original company directory was read or modified during this build.
+## 数据/SQL基准
+144条有效费用、72包裹、144件商品、18条拒绝、1条设计的高费用。
+总费用7947元；月度2360/2488/3099；运费7179元。
+单票运费99.708333、单件运费49.854167；首月环比空白，后两月约5.4237%/24.5579%。
+SQL五条查询在内存SQLite中执行，通过预期值核对。
 
-Not validated: actual MySQL 8 integration, Power BI Desktop/DAX, production workload,
-performance improvement or business savings. All results above are synthetic fixtures.
+## 文件与模型检查
+三个固定CSV为UTF-8无BOM、LF，严格字节SHA256与manifest一致。
+生成器采用同一规范；未修改原ETL输出规则和原样本。
+日期表/一对多关系/度量值字段引用/32个视觉对象及异常视觉过滤通过静态检查。
+40份PBIR/项目JSON通过微软公开schema。
+商品件数来自包裹表；拒绝表独立，不伪造时间归属。
+
+## Desktop边界
+用户提供的三张历史真实截图已确认初版渲染和主要数值。
+最后布局、下拉筛选、环比总计隐藏、异常默认筛选与交叉筛选仍需Desktop实测。
+不存在最终截图或另存的PBIX；历史截图在screenshots/archive/pre-polish。
+MySQL集成未测试；不声称生产性能、真实业务规模或节省收益。
+
+完整输出：../powerbi/pipeline_test_results.txt
+机器核查：../powerbi/validation_report.json
+
+
+再次验证：全部8项测试无跳过通过；SQL基准、LF/哈希及40份JSON检查通过。用户已确认最终Desktop验证；本项目尚未找到对应新版截图/PBIX，无法完成文件级复核。

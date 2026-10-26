@@ -3,9 +3,9 @@
   "source": "Independent deterministic project generator and existing ETL output",
   "period": "2026-01 to 2026-03",
   "sha256": {
-    "charges.csv": "418bd86e6a0cdb2eaedda2fbb353c7363ebdb06cc8d5424b59d83b27099083dc",
-    "parcels.csv": "533f208ae2184abcdf5ca62707d70df4702d9c9249f763fb7dcc6c94cb58f1fd",
-    "rejected.csv": "f69eee87e55482d546ed12e3677a898e8868211975d03c469b726cafbe1076f6"
+    "charges.csv": "f5affc19ea8d12ee90418ea59146143d53ab3679a67af389f2cb52253d67188b",
+    "parcels.csv": "ae10df05db6bfbc9f1aa7ae78c96ccd042258369ca6617f4ab99df9cba19e089",
+    "rejected.csv": "5217e217ab4cde89431eb66633d43e071b2d986ac140a4bb8a6d1d41e41d2757"
   },
   "rows": {
     "charges": 144,
@@ -17,5 +17,7 @@
     "freight_cny": 7179,
     "items": 144,
     "anomaly_lines": 1
-  }
+  },
+  "encoding": "UTF-8 (no BOM)",
+  "line_endings": "LF"
 }
